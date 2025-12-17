@@ -1,0 +1,27 @@
+<nav class="bg-white shadow">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <%= link_to root_path, class: "text-xl font-bold text-gray-800" do %>
+          1on1 Insight Agent
+        <% end %>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <% if current_profile %>
+            <%= link_to "会議一覧", meetings_path, class: "text-gray-600 hover:text-gray-900" %>
+            <%= link_to "新規会議", new_meeting_path, class: "text-gray-600 hover:text-gray-900" %>
+            <%= link_to "プロフィール", profile_path, class: "text-gray-600 hover:text-gray-900" %>
+          <% end %>
+          <span class="text-gray-500">|</span>
+          <span class="text-gray-600"><%= current_user.email %></span>
+          <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-red-600 hover:text-red-800" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-gray-600 hover:text-gray-900" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

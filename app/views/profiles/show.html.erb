@@ -1,0 +1,35 @@
+<div class="max-w-2xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">プロフィール</h1>
+    <%= link_to "編集", edit_profile_path, class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6">
+    <dl class="grid grid-cols-1 gap-4">
+      <div>
+        <dt class="text-sm font-medium text-gray-500">名前</dt>
+        <dd class="mt-1 text-lg text-gray-900"><%= @profile.name %></dd>
+      </div>
+
+      <div>
+        <dt class="text-sm font-medium text-gray-500">役割</dt>
+        <dd class="mt-1 text-lg text-gray-900"><%= @profile.role %></dd>
+      </div>
+
+      <div>
+        <dt class="text-sm font-medium text-gray-500">職種</dt>
+        <dd class="mt-1 text-lg text-gray-900"><%= @profile.job_title || "未設定" %></dd>
+      </div>
+
+      <div>
+        <dt class="text-sm font-medium text-gray-500">会社</dt>
+        <dd class="mt-1 text-lg text-gray-900"><%= @profile.company.name %></dd>
+      </div>
+
+      <div>
+        <dt class="text-sm font-medium text-gray-500">メールアドレス</dt>
+        <dd class="mt-1 text-lg text-gray-900"><%= current_user.email %></dd>
+      </div>
+    </dl>
+  </div>
+</div>

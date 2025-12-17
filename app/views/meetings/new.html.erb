@@ -1,0 +1,58 @@
+<div class="max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">新規会議</h1>
+
+  <div class="bg-white rounded-lg shadow p-6">
+    <%= form_with model: @meeting, local: true, html: { multipart: true } do |f| %>
+      <% if @meeting.errors.any? %>
+        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          <ul class="list-disc list-inside">
+            <% @meeting.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">1. 会議情報の入力</h2>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <%= f.label :evaluator_id, "評価者 (Evaluator)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.collection_select :evaluator_id, @profiles, :id, :display_name, {}, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            <p class="mt-1 text-xs text-gray-500">評価責任を持つ人</p>
+          </div>
+
+          <div>
+            <%= f.label :evaluatee_id, "被評価者 (Evaluatee)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.collection_select :evaluatee_id, @profiles, :id, :display_name, {}, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            <p class="mt-1 text-xs text-gray-500">1on1の主たる対象者</p>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <%= f.label :audio_file, "音声ファイル (.mp3, .mp4, .wav)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.file_field :audio_file, accept: ".mp3,.mp4,.wav", class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
+      </div>
+
+      <% if @evaluation_criteria.any? %>
+        <div class="mb-6 p-4 bg-gray-50 rounded">
+          <h3 class="text-sm font-medium text-gray-700 mb-2">評価基準リスト</h3>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <% @evaluation_criteria.each do |criterion| %>
+              <li>
+                <span class="font-medium"><%= criterion.tag_name %>:</span>
+                <%= criterion.description %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="flex justify-end">
+        <%= f.submit "AI解析を実行 (Gemini)", class: "bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>
